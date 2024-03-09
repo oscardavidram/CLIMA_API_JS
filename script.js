@@ -36,34 +36,43 @@ function fetchDatosClima(ciudad) {
 }
 
 function mostrarDatosClima(data) {
+  //console.log(data)
   const divdDatosClima = document.getElementById("datosClima");
   divdDatosClima.innerHTML = "";
 
-  // const ciudadNombre = data.name
-  // const paisNombre = data.sys.country
-  // const temperatura = data.main.temp
-  // const descripcion = data.weather[0].description
+  const ciudadNombre = data.name
+  const paisNombre = data.sys.country
+  const temperatura = data.main.temp
+  const humedad = data.main.humidity
+  const descripcion = data.weather[0].description
+  const icono = data.weather[0].icon
 
-  const {
-    name: ciudadNombre,
-    sys: { country: paisNombre },
-    main: { temp: temperatura },
-    weather,
-  } = data;
-  const descripcion = weather[0].description;
+  // const {
+  //   name: ciudadNombre,
+  //   sys: { country: paisNombre },
+  //   main: { temp: temperatura },
+  //   weather,
+  // } = data;
+  // const descripcion = weather[0].description;
 
   const ciudadTitulo = document.createElement("h2");
   ciudadTitulo.textContent = `${ciudadNombre}, ${paisNombre}`;
 
   const temperaturaInfo = document.createElement("p");
-  temperaturaInfo.textContent = `La temperataura es: ${Math.floor(
-    temperatura - difKelvin
-  )}°C`;
+  temperaturaInfo.textContent = `La temperataura es: ${Math.floor(temperatura - difKelvin)}°C`;
+
+  const humedadInfo = document.createElement("p");
+  humedadInfo.textContent = `La humedad es: ${humedad}%`;
+
+  const iconoInfo = document.createElement('img')
+  iconoInfo.src = `https://openweathermap.org/img/wn/${icono}@2x.png`
 
   const descripcionInfo = document.createElement("p");
   descripcionInfo.textContent = `La descripcion meteorologica es: ${descripcion}`;
 
   divdDatosClima.appendChild(ciudadTitulo);
   divdDatosClima.appendChild(temperaturaInfo);
+  divdDatosClima.appendChild(humedadInfo);
+  divdDatosClima.appendChild(iconoInfo);
   divdDatosClima.appendChild(descripcionInfo);
 }
